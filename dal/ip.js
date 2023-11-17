@@ -7,22 +7,20 @@ const pool = require('../db/database');
 
 const checkAndRegisterIP = async (ipAddress) => {
     try {
-        const checkIp =  'SELECT name FROM users WHERE ipAddress = ?';
-        const [existingUsers] = await pool.query(checkIp, [ipAddress]);
+        const checkIpQuery = 'SELECT * FROM users WHERE user_ip = ?';
+        const [rows] = await pool.query(checkIpQuery, [ipAddress]);
+        console.log(rows);
 
-        if ( existingUsers.length > 0) {
-
+        if (rows.length > 0) {
+            const existingUser = rows[0];
             return { 
-                message: `Welcome back, ${existingUsers[0].name}.`,
-                userData: existingUsers[0]
+                message: `Welcome back, ${existingUser.name}.`,
+                userData: existingUser
             };
-
         } else {
-
-            const insertIp = 'INSERT INTO users (ipAddress) VALUES (?)';
-            await pool.query(insertIp, [ipAddress]);
-            return { message: 'New user registered.'}
-            
+            const insertIpQuery = 'INSERT INTO users (user_ip) VALUES (?)';
+            await pool.query(insertIpQuery, [ipAddress]);
+            return { message: 'New user registered.'};
         };
 
     } catch (error) {

@@ -8,7 +8,8 @@ router.get('/', async (req, res) => {
     try {
 
         const ipAddress = req.ip;
-        const response =  await checkAndRegisterIP(ipAddress);
+        const userName = 'admin'
+        const response =  await checkAndRegisterIP(ipAddress, userName);
         res.json(response);
 
     } catch (error) {
