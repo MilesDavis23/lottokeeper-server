@@ -5,6 +5,7 @@ const app = express();
 /* routes: */
 const userRoute = require('./routes/user/checkuser');
 const updateName = require('./routes/user/username');
+const saveTickets = require('./routes/game/playTickets');
 
 app.use(express.json());
 /* using routes, defining paths */
@@ -13,6 +14,7 @@ app.use(cors({
 }));
 app.use('/checkUser', userRoute);
 app.use('/updateUserName', updateName);
+app.use('/saveTickets', saveTickets);
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001')
