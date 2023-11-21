@@ -7,7 +7,6 @@ router.get('/', async (req, res) => {
     const ipAddress = req.ip;
     const isAdmin = req.query.isAdmin === 'true';
 
-
     try {
         const response =  await checkAndRegisterIP(ipAddress, isAdmin);
         res.json(response);
