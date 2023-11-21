@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const playNumbersForGame = require('../../dal/tickets');
+const { saveTicketsToDatabase } = require('../../dal/tickets');
 
 /* create tickets for user: */
 router.post('/', async(req, res) => {
-    
-    const gameId = req.body.gameId;
-    const userId = req.body.userId;
-    const isAdmin = req.query.isAdmin === 'true';
-    const numbers = req.body.numbers;
+    const { userData, numbers } = req.body;
+    const isAdmin = userData.is_admin;
+    const gameId = 4;
 
     try {
-
         let response;
         if (isAdmin) {
-            response = '';
+            response = ''; //itt fogjuk csinalni az admin fele ticket creationt.
         } else {
-            response = await playNumbersForGame(userId, gameId, numbers);
+            let userId = userData.id;
+            response = await saveTicketsToDatabase(userId, gameId, numbers);
         };
         res.json(response);
 
