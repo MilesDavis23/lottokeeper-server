@@ -1,11 +1,10 @@
 const pool = require('../db/database');
 
 /* DAL: update player balance: */
-const updatePlayerBalance = async (userId, amount) => {
+const updatePlayerBalance = async (userId, amount, isDistribution = false) => {
     try {
-        const checkIfNoAdminQuery = 'SELECT * FROM users WHERE is_admin = 0';
-        const [results] = await pool.query(checkIfNoAdminQuery);
-        if (results.length > 0) {
+        console.log
+        if (isDistribution === false) {
             const updateUserBalanceQuery = 'UPDATE users SET balance = ? WHERE id = ? AND is_admin = 0';
             const [result] = await pool.query(updateUserBalanceQuery, [amount, userId]);
 
@@ -13,7 +12,15 @@ const updatePlayerBalance = async (userId, amount) => {
                 throw new Error(`User not found or user is an admin: ${userId}`);
             };
             return { message: `User balance updated for user ${userId}` };
-        };
+        } else if (isDistribution === true) {
+            const updateUserBalanceWithWinningAmountQuery = 'UPDATE users SET balance = balance + ? WHERE id = ? AND is_admin = 0';
+            const [result] = await pool.query(updateUserBalanceWithWinningAmountQuery, [amount ? amount :  0, userId]);
+
+            if (result.affectedRows === 0) {
+                throw new Error(`User not found or user is an admin: ${userId}`);
+            };
+            return { message: `User balance updated for user ${userId}` };
+        }
     } catch (error) {
         console.error('Database error during updating player balance:', error);
         throw error;
@@ -35,7 +42,7 @@ const updateAdminBalance = async (userId, amount) => {
                 throw new Error(`User not found or user is a player: ${userId}`);
             }
     
-            return { message: `Admin balance updated for user ${userId}` };
+            return { message: `Admin balance updated.` };
         }
     } catch (error) {
         console.error('Database error during updating admin balance:', error);
@@ -47,3 +54,14 @@ module.exports = {
     updatePlayerBalance, 
     updateAdminBalance
 };
+
+
+
+/*
+const checkIfNoAdminQuery = 'SELECT * FROM users WHERE is_admin = 0'; // ez kell ide?
+const [results] = await pool.query(checkIfNoAdminQuery);
+if (results.length > 0) {
+
+};
+
+*/

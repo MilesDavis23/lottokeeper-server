@@ -6,7 +6,6 @@ const router = express.Router();
 // this could be modified to take if admin wants ticket: it has to be iDless in that case. (all admin for all games.)
 router.post('/', async (req, res) => {
     const { userId, gameId} = req.body;
-    console.log(req.body);
 
     try {
         let response = await getTicketsFromDatabase(userId, gameId);

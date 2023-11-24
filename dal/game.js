@@ -42,9 +42,38 @@ const updateGame = async (prize, tickets, isActive,  gameId) => {
     };
 };
 
+/* get winning userId, based on  */
+const getWinners = async (winners) => {
+    try {
+
+        let winningUserIds = {
+            fiveHit: [],
+            fourHit: [],
+            threeHit: [],
+            twoHit: [],
+            noHit: []
+        };
+
+        for (const tier in winners) {
+            if (winners[tier].length > 0) {
+                const query = 'SELECT userId FROM tickets WHERE id IN (?)';
+                const [results] = await pool.query(query, [winners[tier]]);
+                winningUserIds[tier] = results.map(row => row.userId);
+            };
+        };
+
+        return winningUserIds;
+        
+    } catch (error){
+        console.error('Database error during fetching winning user data:', error);
+        throw error;
+    };
+};
+
 module.exports = {
     createNewGame,
     checkForActiveGame,
-    updateGame
+    updateGame, 
+    getWinners
 };
 
