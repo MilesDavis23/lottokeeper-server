@@ -4,9 +4,8 @@ const { saveTicketsToDatabase } = require('../../dal/tickets');
 
 /* create tickets for user: */
 router.post('/', async(req, res) => {
-    const { userData, numbers } = req.body;
+    const { userData, gameId, numbers } = req.body;
     const isAdmin = userData.is_admin;
-    const gameId = 4;
 
     try {
         let response;
@@ -19,6 +18,7 @@ router.post('/', async(req, res) => {
         res.json(response);
 
     } catch (error) { 
+        console.log(error);
         res.status(500).send('An error happened during getting tickets for user.')
     };
 

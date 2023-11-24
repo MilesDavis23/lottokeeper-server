@@ -9,6 +9,8 @@ const saveTickets = require('./routes/game/saveTickets');
 const getTickets = require('./routes/game/getTickets');
 const getGame = require('./routes/game/getGame');
 const updateBalance = require('./routes/user/handlebalance');
+const updateGameData = require('./routes/game/saveGame');
+
 
 app.use(express.json());
 /* using routes, defining paths */
@@ -28,6 +30,7 @@ app.use('/saveTickets', saveTickets);
 app.use('/getTickets', getTickets);
 app.use('/getGame', getGame);
 app.use('/updateBalance', updateBalance);
+app.use('/updateGame', updateGameData);
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001')

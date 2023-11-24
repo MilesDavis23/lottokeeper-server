@@ -43,7 +43,25 @@ const getTicketsFromDatabase = async (userId, gameId) => {
     };
 };
 
+const getAllTicketsForAGame = async (gameId) => {
+    try {
+        const getAllTicketsQuery = 'SELECT * FROM tickets WHERE gameId = ?';
+        const [rows] = await pool.query(getAllTicketsQuery, gameId);
+
+        if (rows.length > 0) {
+            const allTickets = rows;
+            return allTickets;
+        } else { 
+            return  { message: `Can't find tickets for game: ${gameId}`}
+        }
+    } catch (error) {
+        console.error('Database error getting all tickets for game.', error);
+        throw (error);
+    }
+}
+
 module.exports = {
     saveTicketsToDatabase,
-    getTicketsFromDatabase
+    getTicketsFromDatabase,
+    getAllTicketsForAGame
 };
