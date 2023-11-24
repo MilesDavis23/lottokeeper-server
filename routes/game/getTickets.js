@@ -1,16 +1,19 @@
 const express = require('express');
-const { getTicketsFromDatabase } = require('../../dal/tickets');
+const { getTicketsFromDatabase, getAllTicketsForAGame } = require('../../dal/tickets');
 const router = express.Router();
 
 /* get the tickets based on userId */
 // this could be modified to take if admin wants ticket: it has to be iDless in that case. (all admin for all games.)
 router.post('/', async (req, res) => {
-    const userId = req.body.userId;
-    const gameId = 4; 
+    const { userId, gameId} = req.body;
+    console.log(req.body);
 
     try {
-        const respone = await getTicketsFromDatabase(userId, gameId);
-        res.json(respone);
+        let response = await getTicketsFromDatabase(userId, gameId);
+        if (userId === null) {
+            response = await getAllTicketsForAGame(gameId);
+        }
+        res.json(response);
     } catch (error) {
         console.error('error fetching tickets:', error);
         res.status(500).send('Error happened during getting tickets. ')

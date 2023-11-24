@@ -5,16 +5,15 @@ const { updateAdminBalance } = require('../../dal/balance');
 
 router.post('/', async(req, res) => {
     const { userData, amount} = req.body;
+    const userId = userData.id;
 
-    try {
-        const userId = userData.id;
+    try {        
         await updatePlayerBalance(userId, amount);
+        await updateAdminBalance(userId, null);
 
-        // has to be here, update the admin balance:
-
-        
-        res.status(200).send('Plater balance sccesfully updated.');
+        res.status(200).send('Users balance successfully updated.');
     } catch (error) {
+        console.log(error);
         res.status(500).send('An error during updating the users balance.');
     }
 });
