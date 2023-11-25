@@ -11,7 +11,7 @@ router.post('/', async(req, res) => {
         await updatePlayerBalance(userId, amount);
         await updateAdminBalance(userId, null);
 
-        res.status(200).send('Users balance successfully updated.');
+        res.json({ message: 'Users balance successfully updated.' });
     } catch (error) {
         console.log(error);
         res.status(500).send('An error during updating the users balance.');

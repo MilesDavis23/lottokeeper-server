@@ -3,7 +3,6 @@ const pool = require('../db/database');
 /* DAL: update player balance: */
 const updatePlayerBalance = async (userId, amount, isDistribution = false) => {
     try {
-        console.log
         if (isDistribution === false) {
             const updateUserBalanceQuery = 'UPDATE users SET balance = ? WHERE id = ? AND is_admin = 0';
             const [result] = await pool.query(updateUserBalanceQuery, [amount, userId]);
@@ -24,7 +23,7 @@ const updatePlayerBalance = async (userId, amount, isDistribution = false) => {
     } catch (error) {
         console.error('Database error during updating player balance:', error);
         throw error;
-    }
+    };
 };
 
 /* DAL: update admin balance: */ //this has to be updated of corse!!!!!!: and exported to handlebalance route.
@@ -47,7 +46,7 @@ const updateAdminBalance = async (userId, amount) => {
     } catch (error) {
         console.error('Database error during updating admin balance:', error);
         throw error;
-    }
+    };
 };
 
 module.exports = {

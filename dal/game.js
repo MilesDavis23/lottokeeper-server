@@ -27,6 +27,7 @@ const checkForActiveGame = async () => {
     };
 }; 
 
+/* DAL: update the gamedata with the updated gameinstance from the client. */
 const updateGame = async (prize, tickets, isActive,  gameId) => {
     try {
         const updateGameQuery = 'UPDATE games SET prize = ?, tickets_sold = ?, is_active = ? WHERE id = ?';
@@ -42,10 +43,10 @@ const updateGame = async (prize, tickets, isActive,  gameId) => {
     };
 };
 
-/* get winning userId, based on  */
+/* DAL: get winning userId, based on ticket ids:  */
 const getWinners = async (winners) => {
-    try {
 
+    try {
         let winningUserIds = {
             fiveHit: [],
             fourHit: [],
@@ -70,10 +71,29 @@ const getWinners = async (winners) => {
     };
 };
 
+/* DAL: update the current game  */
+const setGameIsActive = async (gameId) => {
+    try {
+        const updateGameQuery = 'UPDATE games SET is_active = 0 WHERE id = ?';
+        const [result] = await pool.query(updateGameQuery, [gameId]);
+
+        if (result.affectedRows === 0) {
+            throw new Error(`Not able to update the game for: ${gameId}`)
+        };
+
+        return { message: `Game status set to inactive for game: ${gameId}`};
+    } catch (error) {
+        console.error('Database error during updating game data.', error);
+        throw error;
+    };
+};
+
+
 module.exports = {
     createNewGame,
     checkForActiveGame,
     updateGame, 
-    getWinners
+    getWinners,
+    setGameIsActive
 };
 
