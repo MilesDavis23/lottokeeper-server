@@ -23,12 +23,13 @@ router.post('/', async (req, res) => {
                 await updatePlayerBalance(userId, prizeAmount, true);
             };
         };
-
-        return winnerUserIds;
-
+        res.json({
+            message: 'Data for admin and winning users updated.',
+            data: winnerUserIds
+        });
     } catch (error) {
         console.error('Database error during fetching winning user data:', error);
-        throw error;
+        res.status(500).json({ error: "Database error" });
     };
 });
 

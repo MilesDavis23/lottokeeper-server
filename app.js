@@ -11,6 +11,7 @@ const getGame = require('./routes/game/getGame');
 const updateBalance = require('./routes/user/handlebalance');
 const updateGameData = require('./routes/game/saveGame');
 const handleDraw = require('./routes/game/drawGame');
+const resetGame = require('./routes/game/resetGame');
 
 
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use(cors({
         }
       }
 }));
+app.use('/resetGame', resetGame);
 app.use('/checkUser', userRoute);
 app.use('/updateUserName', updateName);
 app.use('/saveTickets', saveTickets);
