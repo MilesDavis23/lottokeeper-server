@@ -12,9 +12,10 @@ const updatePlayerBalance = async (userId, amount, isDistribution = false) => {
             };
             return { message: `User balance updated for user ${userId}` };
         } else if (isDistribution === true) {
-            const updateUserBalanceWithWinningAmountQuery = 'UPDATE users SET balance = balance + ? WHERE id = ? AND is_admin = 0';
+            const updateUserBalanceWithWinningAmountQuery = 'UPDATE users SET balance = balance + ? WHERE id = ?';
             const [result] = await pool.query(updateUserBalanceWithWinningAmountQuery, [amount ? amount :  0, userId]);
 
+            /// here has to check for admin!!!!!!!!!!!!! -> az admin idhoz ne adja hozza a prizet: ?
             if (result.affectedRows === 0) {
                 throw new Error(`User not found or user is an admin: ${userId}`);
             };

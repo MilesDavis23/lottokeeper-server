@@ -59,6 +59,7 @@ const getWinners = async (winners) => {
             if (winners[tier].length > 0) {
                 const query = 'SELECT userId FROM tickets WHERE id IN (?)';
                 const [results] = await pool.query(query, [winners[tier]]);
+                /* we should add the ticket ID here too. ???????? maybe not/ */
                 winningUserIds[tier] = results.map(row => row.userId);
             };
         };
