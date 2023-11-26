@@ -5,7 +5,6 @@ const router = express.Router();
 /* Separate game for setting the game to inactvie, based on gameId */
 router.post('/', async(req, res) => {
     const { gameData } = req.body;
-    console.log(gameData);
 
     try {
         const activeGame = await checkForActiveGame();
@@ -15,7 +14,7 @@ router.post('/', async(req, res) => {
         const newGame = await createNewGame();
         res.json({ message: `Game:${gameData.id} has been reseted, new game has been intialized with game id: ${newGame.id}` });
     } catch (error) {
-        console.log('Error during updating game status.', error);
+        console.log('Error during updating game status.', error); // ezt lehet kiszedni / profobban log boolean 
         res.status(500).send('Error during updating game status.');
     };
 });
