@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -13,6 +14,7 @@ const updateGameData = require('./routes/game/saveGame');
 const handleDraw = require('./routes/game/drawGame');
 const resetGame = require('./routes/game/resetGame');
 
+const port = process.env.PORT || 3001;
 
 app.use(express.json());
 /* using routes, defining paths */
@@ -36,6 +38,6 @@ app.use('/updateBalance', updateBalance);
 app.use('/updateGame', updateGameData);
 app.use('/updateWinners', handleDraw);
 
-app.listen(3001, () => {
-    console.log('Server is running on port 3001')
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
 });
