@@ -13,6 +13,9 @@ const updateBalance = require('./routes/user/handlebalance');
 const updateGameData = require('./routes/game/saveGame');
 const handleDraw = require('./routes/game/drawGame');
 const resetGame = require('./routes/game/resetGame');
+app.get('/test', (req, res) => {
+  res.send('Test route is working');
+});
 
 const port = process.env.PORT || 3001;
 
