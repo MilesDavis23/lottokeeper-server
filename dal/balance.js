@@ -7,7 +7,7 @@ const updatePlayerBalance = async (userId, amount, isDistribution = false) => {
             const updateUserBalanceQuery = 'UPDATE users SET balance = ? WHERE id = ? AND is_admin = 0';
             const [result] = await pool.query(updateUserBalanceQuery, [amount, userId]);
 
-            if (result.affectedRows === 0) {
+            if (result.affectedRows === 0) { /* !result.affectedRows */
                 throw new Error(`User not found or user is an admin: ${userId}`);
             };
             return { message: `User balance updated for user ${userId}` };

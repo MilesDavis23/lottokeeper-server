@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 
     try {
         let response = await getTicketsFromDatabase(userId, gameId);
-        if (userId === null) {
+        if (userId === null) { /* itt boolean check */
             response = await getAllTicketsForAGame(gameId);
         }
         res.json(response);
