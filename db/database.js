@@ -18,6 +18,8 @@ const dbConfig = process.env.NODE_ENV === 'production' ? {
 
 const pool = mysql.createPool(dbConfig);
 
+console.log('these aree the current settings:', dbConfig);
+
 const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
