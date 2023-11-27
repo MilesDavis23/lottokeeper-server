@@ -3,6 +3,23 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+app.use(express.json());
+
+const allowedOrigins = ['http://localhost:3000', 'https://5fe0-89-134-0-253.ngrok-free.app'];
+app.use(cors({
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+          callback(null, true); 
+        } else {
+          callback(new Error('Not allowed by CORS lol')); 
+        }
+      }
+}));
+
+app.get('/test', (req, res) => {
+  res.send('Test route is working');
+});
+
 /* routes: */
 const userRoute = require('./routes/user/checkuser');
 const updateName = require('./routes/user/changename');
@@ -14,20 +31,7 @@ const updateGameData = require('./routes/game/saveGame');
 const handleDraw = require('./routes/game/drawGame');
 const resetGame = require('./routes/game/resetGame');
 
-const port = process.env.PORT || 3001;
-
-app.use(express.json());
 /* using routes, defining paths */
-const allowedOrigins = ['http://localhost:3000', 'https://5fe0-89-134-0-253.ngrok-free.app'];
-app.use(cors({
-    origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-          callback(null, true); 
-        } else {
-          callback(new Error('Not allowed by CORS lol')); 
-        }
-      }
-}));
 app.use('/resetGame', resetGame);
 app.use('/checkUser', userRoute);
 app.use('/updateUserName', updateName);
@@ -38,6 +42,7 @@ app.use('/updateBalance', updateBalance);
 app.use('/updateGame', updateGameData);
 app.use('/updateWinners', handleDraw);
 
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 });
