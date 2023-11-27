@@ -1,9 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
 
+
 app.use(express.json());
+app.use(cookieParser());
 
 const allowedOrigins = ['http://localhost:3000', 'https://5fe0-89-134-0-253.ngrok-free.app', 'https://milesdavis23.github.io/lottokeeper/', "https://MilesDavis23.github.io/lottokeeper" ];
 app.use(cors({
@@ -13,7 +16,8 @@ app.use(cors({
         } else {
           callback(new Error('Not allowed by CORS lol')); 
         }
-      }
+      }, 
+      credentials: true //allow cookies
 }));
 
 app.get('/test', (req, res) => {
