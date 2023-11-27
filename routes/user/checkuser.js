@@ -8,8 +8,13 @@ router.get('/', async (req, res) => {
     let uniqueId = req.cookies.uniqueId;
     if (!uniqueId) {
         uniqueId = uuidv4();
-        res.cookie('uniqueId', uniqueId, { httpOnly: true});
-    }; //create the unque id for the user. 
+        res.cookie('uniqueId', uniqueId, { 
+            httpOnly: true,
+            sameSite: 'None', 
+            secure: true, 
+            maxAge: 1000 * 60 * 60 * 24 * 30
+        });
+    }; //create the unque id for the user, using cookies. 
     const isAdmin = req.query.isAdmin === 'true';
 
     try {
