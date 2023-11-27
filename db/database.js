@@ -1,12 +1,22 @@
 const mysql = require('mysql2/promise');
 
-const pool = mysql.createPool({
-    connectionLimit: 50,
-    host: 'localhost',
-    user: 'root',
-    password: 'petiland',
-    database: 'lottokeeper'
-});
+
+const dbConfig = process.env.NODE_ENV === 'production' ? {
+  connectionLimit: 50,
+  host: process.env.JAWSDB_HOST,
+  port: process.env.JAWSDB_PORT,
+  user: process.env.JAWSDB_USER,
+  password: process.env.JAWSDB_PASS,
+  database: process.env.JAWSDB_DB
+} : {
+  connectionLimit: 50,
+  host: 'localhost',
+  user: 'root',
+  password: 'petiland',
+  database: 'lottokeeper'
+}
+
+const pool = mysql.createPool(dbConfig);
 
 const testConnection = async () => {
   try {
