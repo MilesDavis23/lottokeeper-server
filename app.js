@@ -10,7 +10,8 @@ const allowedOrigins = [
   'https://5fe0-89-134-0-253.ngrok-free.app',
   'https://milesdavis23.github.io/lottokeeper/',
   "https://MilesDavis23.github.io/lottokeeper",
-  "https://MilesDavis23.github.io/"
+  "https://MilesDavis23.github.io/",
+  "https://MilesDavis23.github.io"
 ];
 app.use(cors({
     origin: function (origin, callback) {
