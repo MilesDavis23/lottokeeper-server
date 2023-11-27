@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
 
     try {
         /* update the admin balnce: */
-        let prizeSumForAdminBalance = -prizeSum; /* 60% is distributted amoung, 40% az admine  */
+        let prizeSumForAdminBalance = -prizeSum; // 60% is the distributed prize, the left is for the admin.
         console.log('prizeSum:', prizeSumForAdminBalance);
         await updateAdminBalance(null, prizeSumForAdminBalance);
 
