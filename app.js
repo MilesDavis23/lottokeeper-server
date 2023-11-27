@@ -12,7 +12,7 @@ const allowedOrigins = [
   "https://MilesDavis23.github.io/lottokeeper",
   "https://MilesDavis23.github.io/",
   "https://MilesDavis23.github.io",
-  "https://milesDavis23.github.io"
+  "https://milesdavis23.github.io"
 ];
 app.use(cors({
     origin: function (origin, callback) {
