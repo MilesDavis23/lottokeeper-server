@@ -9,10 +9,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 const allowedOrigins = [
-  'http://localhost:3000', 
-  'https://5fe0-89-134-0-253.ngrok-free.app', 
-  'https://milesdavis23.github.io/lottokeeper/', 
-  "https://MilesDavis23.github.io/lottokeeper",
+  'http://localhost:3000',
+  'https://5fe0-89-134-0-253.ngrok-free.app',
+  "https://milesdavis23.github.io",
+  'https://prod--papaya-alfajores-c4f469.netlify.app'
   'https://6565097acc71a900083907f4--papaya-alfajores-c4f469.netlify.app/',
   'https://6565097acc71a900083907f4--papaya-alfajores-c4f469.netlify.app'
 ];
