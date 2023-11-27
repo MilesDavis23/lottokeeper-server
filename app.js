@@ -8,7 +8,15 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOrigins = ['http://localhost:3000', 'https://5fe0-89-134-0-253.ngrok-free.app', 'https://milesdavis23.github.io/lottokeeper/', "https://MilesDavis23.github.io/lottokeeper" ];
+const allowedOrigins = [
+  'http://localhost:3000', 
+  'https://5fe0-89-134-0-253.ngrok-free.app', 
+  'https://milesdavis23.github.io/lottokeeper/', 
+  "https://MilesDavis23.github.io/lottokeeper",
+  'https://6565097acc71a900083907f4--papaya-alfajores-c4f469.netlify.app/',
+  'https://6565097acc71a900083907f4--papaya-alfajores-c4f469.netlify.app'
+];
+
 app.use(cors({
     origin: function (origin, callback) {
         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
