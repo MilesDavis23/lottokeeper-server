@@ -4,11 +4,12 @@ const router = express.Router();
 
 /* change username */
 router.post('/', async (req, res) => {
-    const ipAddress = req.ip; //maybe this could be changed, to use userId, instead of ipAdress
+    const userData = req.body.userData; //maybe this could be changed, to use userId, instead of ipAdress
     const newUserName = req.body.newUserName;
 
     try {
-         const response = await changeUsername(ipAddress, newUserName);
+         let userId = userData.id; 
+         const response = await changeUsername(userId, newUserName);
          res.json(response);
 
     } catch (error) {
