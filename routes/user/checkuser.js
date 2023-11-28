@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid')
 /* check user: */
 router.get('/', async (req, res) => {
     let uniqueId = req.cookies.uniqueId;
+    console.log('these are the cookies:', uniqueId);
     if (!uniqueId) {
         uniqueId = uuidv4();
         res.cookie('uniqueId', uniqueId, { 
