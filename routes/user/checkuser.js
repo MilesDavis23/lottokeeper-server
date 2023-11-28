@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         uniqueId = uuidv4();
         res.cookie('uniqueId', uniqueId, { 
             httpOnly: true,
-            sameSite: 'Lax', 
+            sameSite: 'None', 
             secure: true, 
             maxAge: 1000 * 60 * 60 * 24 * 30
         });
