@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* change username */
 router.post('/', async (req, res) => {
-    const userData = req.body.userData; //maybe this could be changed, to use userId, instead of ipAdress
+    const userData = req.body.userData; //using userId to query, and change the username
     const newUserName = req.body.newUserName;
 
     try {
